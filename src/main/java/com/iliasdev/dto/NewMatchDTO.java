@@ -1,0 +1,13 @@
+package com.iliasdev.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class NewMatchDTO {
+    private String playerOneName;
+    private String playerTwoName;
+}

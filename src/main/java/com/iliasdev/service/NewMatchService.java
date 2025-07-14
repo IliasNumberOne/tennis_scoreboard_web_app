@@ -9,7 +9,7 @@ public class NewMatchService {
     private static final NewMatchService INSTANCE = new NewMatchService();
     private static final PlayerDao playerDao = PlayerDao.getINSTANCE();
 
-    public Player  getOrCreatePlayer(String playerName) {
+    public Player getOrCreatePlayer(String playerName) {
         return playerDao.findByName(playerName).orElseGet(() -> playerDao.save(new Player(playerName)));
     }
 

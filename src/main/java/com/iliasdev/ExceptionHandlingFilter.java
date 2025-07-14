@@ -24,13 +24,13 @@ public class ExceptionHandlingFilter extends HttpFilter {
             super.doFilter(req, res, chain);
         }
         catch(InvalidParameterException e){
-            writeErrorResponse(res, SC_BAD_REQUEST, e);
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/new-match.jsp").forward(req, res);
         }
     }
 
     private void writeErrorResponse(HttpServletResponse resp, int errorCode, RuntimeException errorMessage) throws IOException {
         resp.setStatus(errorCode);
-
         objectMapper.writeValue(resp.getWriter(), new ErrorResponseDTO(errorCode, errorMessage.getMessage()));
     }
 }

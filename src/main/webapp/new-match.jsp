@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -33,8 +34,8 @@
             <h1>Start new match</h1>
             <div class="new-match-image"></div>
             <div class="form-container center">
-                <form method="post" action="new-match">
-                    <p style="color: red;">Sample error message</p>
+                <form id="matchForm" method="post" action="new-match">
+                    <p class="error" style="color: red;">${error}</p>
                     <label class="label-player" for="playerOne">Player one</label>
                     <input class="input-player" id="playerOne" name="playerOne" placeholder="Name" type="text" required title="Enter a name">
 
@@ -46,10 +47,9 @@
         </div>
     </div>
 </main>
-<footer>
-    <div class="footer">
-        <p>&copy; Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a> roadmap.</p>
-    </div>
-</footer>
 </body>
 </html>
+
+
+
+

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Statement;
 import java.util.UUID;
 
 @WebServlet("/new-match")
@@ -36,7 +35,6 @@ public class NewMatchController extends HttpServlet {
         Player player1 = newMatchService.getOrCreatePlayer(newMatchDTO.getPlayerOneName());
         Player player2 = newMatchService.getOrCreatePlayer(newMatchDTO.getPlayerTwoName());
         UUID uuid = ongoingMatchService.createMatch(player1, player2);
-
 
 
         resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);

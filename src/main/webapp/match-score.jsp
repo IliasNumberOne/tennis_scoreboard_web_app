@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -41,26 +45,76 @@
                     <th class="table-text">Player</th>
                     <th class="table-text">Sets</th>
                     <th class="table-text">Games</th>
-                    <th class="table-text">Points</th>
+                    <th class="table-text">
+                        <c:choose>
+                            <c:when test="${match.tieBreak}">
+                                Tie-Break Points
+                            </c:when>
+                            <c:otherwise>
+                                Points
+                            </c:otherwise>
+                        </c:choose>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="player1">
-                    <td class="table-text"></td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">4</td>
-                    <td class="table-text">40</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        ${match.scorePlayer1.player.name}
+                        <c:if test="${match.gameOver}">
+                            <div>
+                                Winner
+                            </div>
+                        </c:if>
+
+                    </td>
+                    <td class="table-text">${match.scorePlayer1.set}</td>
+                    <td class="table-text">${match.scorePlayer1.game}</td>
+                    <td class="table-text">
+                        <c:choose>
+                            <c:when test="${match.tieBreak}">
+                                ${match.scorePlayer1.tieBreakPoint}
+                            </c:when>
+                            <c:otherwise>
+                                ${match.scorePlayer1.point.pointCode}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td class="table-text">
+                        <form action="${pageContext.request.contextPath}/match-score" method="post">
+                            <input type="hidden" name="winnerPoint" value="1">
+                            <button class="score-btn" name="uuid" value="${match.uuid}"
+                            ${match.gameOver ? 'disabled' : ''}>Score</button>
+                        </form>
                     </td>
                 </tr>
                 <tr class="player2">
-                    <td class="table-text">Roger Federer</td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">3</td>
-                    <td class="table-text">15</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        ${match.scorePlayer2.player.name}
+                            <c:if test="${match.gameOver}">
+                                <div>
+                                    Winner
+                                </div>
+                            </c:if>
+                    </td>
+                    <td class="table-text">${match.scorePlayer2.set}</td>
+                    <td class="table-text">${match.scorePlayer2.game}</td>
+                    <td class="table-text">
+                        <c:choose>
+                            <c:when test="${match.tieBreak}">
+                                ${match.scorePlayer2.tieBreakPoint}
+                            </c:when>
+                            <c:otherwise>
+                                ${match.scorePlayer2.point.pointCode}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td class="table-text">
+                        <form action="${pageContext.request.contextPath}/match-score" method="post">
+                            <input type="hidden" name="winnerPoint" value="2">
+                            <button class="score-btn" name="uuid" value="${match.uuid}"
+                            ${match.gameOver ? 'disabled' : ''}>Score</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
@@ -68,10 +122,5 @@
         </section>
     </div>
 </main>
-<footer>
-    <div class="footer">
-        <p>&copy; Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a> roadmap.</p>
-    </div>
-</footer>
 </body>
 </html>

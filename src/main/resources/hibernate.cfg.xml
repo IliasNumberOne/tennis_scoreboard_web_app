@@ -19,5 +19,6 @@
     <property name="hibernate.show_sql">true</property>
 
     <mapping class="com.iliasdev.entity.Player"/>
+    <mapping class="com.iliasdev.entity.Match"/>
   </session-factory>
 </hibernate-configuration>

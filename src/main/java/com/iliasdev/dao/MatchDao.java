@@ -6,6 +6,8 @@ import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class MatchDao implements Dao<Match> {
     @Getter
     private static final MatchDao INSTANCE = new MatchDao();
@@ -24,4 +26,12 @@ public class MatchDao implements Dao<Match> {
         }
         return match;
     }
+
+
+    public List<Match> getAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Match", Match.class).list();
+        }
+    }
+
 }

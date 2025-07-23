@@ -22,8 +22,8 @@
         </div>
         <div>
             <nav class="nav-links">
-                <a class="nav-link" href="index.jsp">Homeaaaa</a>
-                <a class="nav-link" href="new-match.jsp">Matches</a>
+                <a class="nav-link" href="index">Homeaaaa</a>
+                <a class="nav-link" href="matches">Matches</a>
             </nav>
         </div>
     </section>

@@ -27,4 +27,8 @@ public class Match {
         this.player2 = player2;
         this.winner = winner;
     }
+
+    public Match() {
+
+    }
 }

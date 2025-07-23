@@ -29,7 +29,7 @@
         <div>
             <nav class="nav-links">
                 <a class="nav-link" href="index.jsp">Home</a>
-                <a class="nav-link" href="matches.jsp">Matches</a>
+                <a class="nav-link" href="matches">Matches</a>
             </nav>
         </div>
     </section>

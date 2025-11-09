@@ -39,7 +39,7 @@
                 <input class="input-filter" name="filter_by_player_name" placeholder="Filter by name" type="text" />
             </form>
             <div>
-                <a href="#">
+                <a href="matches">
                     <button class="btn-filter">Reset Filter</button>
                 </a>
             </div>
@@ -50,12 +50,6 @@
                 <th>Player One</th>
                 <th>Player Two</th>
                 <th>Winner</th>
-            </tr>
-
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
             </tr>
 
             <c:forEach var="match" items="${matches}">
@@ -69,11 +63,38 @@
         </table>
 
         <div class="pagination">
-            <a class="prev" href="#"> < </a>
-            <a class="num-page current" href="#">1</a>
-            <a class="num-page" href="#">2</a>
-            <a class="num-page" href="#">3</a>
-            <a class="next" href="#"> > </a>
+
+            <c:choose>
+                <c:when test="${currentPage > 1}">
+                    <a class="prev" href="?page=${currentPage - 1}${filterParam}"><</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="prev disabled"><</a>
+                </c:otherwise>
+            </c:choose>
+
+
+            <c:forEach var="i" begin="1" end="${totalPages}">
+                <c:choose>
+                    <c:when test="${i == currentPage}">
+                        <a class="num-page current" href="#">${i}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="num-page" href="?page=${i}${filterParam}">${i}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+
+
+            <c:choose>
+                <c:when test="${currentPage < totalPages}">
+                    <a class="next" href="?page=${currentPage + 1}${filterParam}">></a>
+                </c:when>
+                <c:otherwise>
+                    <a class="next disabled">></a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </main>

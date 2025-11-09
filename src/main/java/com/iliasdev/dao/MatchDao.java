@@ -27,10 +27,44 @@ public class MatchDao implements Dao<Match> {
         return match;
     }
 
-
-    public List<Match> getAll() {
+    public List<Match> findByNameWithPagination(String name, int page, int pageSize) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Match", Match.class).list();
+            String hql = "from Match m where lower(m.player1.name) like :name or lower(m.player2.name) like :name";
+            return session.createQuery(hql, Match.class)
+                    .setParameter("name", "%" + name.toLowerCase() + "%")
+                    .setFirstResult((page - 1) * pageSize)
+                    .setMaxResults(pageSize)
+                    .list();
+        }
+    }
+
+
+    public List<Match> getAllWithPagination(int page, int pageSize) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Match", Match.class)
+                    .setFirstResult((page - 1) * pageSize)
+                    .setMaxResults(pageSize)
+                    .list();
+        }
+    }
+
+    public int countAllMatches() {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Long count = session.createQuery("select count(m) from Match m", Long.class).uniqueResult();
+            return count != null ? count.intValue() : 0;
+        }
+    }
+
+    public int countMatchesByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Long count = session.createQuery(
+                            "select count(m) from Match m " +
+                                    "where lower(m.player1.name) like :name " +
+                                    "or lower(m.player2.name) like :name",
+                            Long.class)
+                    .setParameter("name", "%" + name.toLowerCase() + "%")
+                    .uniqueResult();
+            return count != null ? count.intValue() : 0;
         }
     }
 
